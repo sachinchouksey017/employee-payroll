@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/payroll-form.css">
+    <title>Employee payroll form</title>
+    <script defer src="../js/payroll-form.js"></script>
+</head>
+
+<body>
+    <div>
+        <header>Employee Payroll form</header>
+    </div>
+    <div class="form">
+        <div class="row">
+            <label class="label text" for="name">Name</label>
+            <input class="input" type="text" id="name" name="name" placeholder="Your name..">
+        </div>
+        <div class="row">
+            <label class="label text" for="lname">Profile image</label>
+            <div class="label text uploadButton" onclick="fileInput.click()">
+                <img src="../assets/icons/attach_file-24px.svg" alt="attach">
+                Upload Profile image
+                <img class="profile" id='image' src="https://www.w3schools.com/howto/img_avatar.png">
+                <input #profileUpload accept="image/jpeg, image/png" id="fileInput" style="display: none;" type='file'
+                    onchange="onSelectFile(event)">
+            </div>
+        </div>
+        <div class="row">
+            <label class="label text" for="gender">Gender</label>
+            <div>
+                <input type="radio" id="male" name="gender" value="male">
+                <label class="text" for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label class="text" for="female">Female</label>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <label class="label text" for="department">Department</label>
+            <div>
+                <input class="checkbox" type="checkbox" id="hr" name="hr" value="HR">
+                <label class="text" for="hr">HR</label>
+                <input class="checkbox" type="checkbox" id="sales" name="sales" value="Sales">
+                <label class="text" for="sales">Sales</label>
+                <input class="checkbox" type="checkbox" id="finance" name="finance" value="Finance">
+                <label class="text" for="finance">Finance</label>
+                <input class="checkbox" type="checkbox" id="engineer" name="engineer" value="Engineer">
+                <label class="text" for="engineer">Engineer</label>
+                <input class="checkbox" type="checkbox" id="others" name="others" value="Others">
+                <label class="text" for="others">Others</label>
+            </div>
+        </div>
+        <div class="row">
+            <label class="label text" for="salary">Salary</label>
+            <input class="input" type="number" id="salary" name="salary" placeholder="Salary">
+        </div>
+        <div class="row">
+            <label class="label text" for="startDate">Start Date</label>
+            <div>
+                <select id="day" name="Day">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+                <select id="month" name="Month">
+                    <option value="Jan">January</option>
+                    <option value="Feb">Febuary</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sept">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                </select>
+                <select id="year" name="Year">
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="label text" for="notes">Notes</label>
+            <textarea id="notes" class="input" name="Notes" placeholder="" style="height:100px"></textarea>
+        </div>
+        <div class="buttonParent">
+            <button onclick="submit()" class="button submitButton" id="submitButton">Submit</button>
+            <button onclick="resetValue()" class="resetButton button">Reset</button>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
