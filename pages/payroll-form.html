@@ -14,31 +14,44 @@
     <div>
         <header>Employee Payroll form</header>
     </div>
-    <div class="form">
+    <form class="form" action="#" onsubmit="save();return false">
         <div class="row">
             <label class="label text" for="name">Name</label>
-            <input class="input" type="text" id="name" name="name" placeholder="Your name..">
+            <input class="input" type="text" id="name" name="name" placeholder="Your name.." required>
         </div>
         <div class="row">
-            <label class="label text" for="lname">Profile image</label>
-            <div class="label text uploadButton" onclick="fileInput.click()">
-                <img src="../assets/icons/attach_file-24px.svg" alt="attach">
-                Upload Profile image
-                <img class="profile" id='image' src="https://www.w3schools.com/howto/img_avatar.png">
-                <input #profileUpload accept="image/jpeg, image/png" id="fileInput" style="display: none;" type='file'
-                    onchange="onSelectFile(event)">
+            <label class="label text" for="profile">Profile image</label>
+            <div class="profile-radio-button">
+                <label>
+                    <input type="radio" id="profile1" name="profile" value="../assets/profile-images/Ellipse -3.png"
+                        required>
+                    <img class="profile" id='image1' src="../assets/profile-images/Ellipse -3.png">
+                </label>
+                <label>
+                    <input type="radio" id="profile2" name="profile" value="../assets/profile-images/Ellipse 1.png"
+                        required>
+                    <img class="profile" id='image2' src="../assets/profile-images/Ellipse 1.png">
+                </label>
+                <label>
+                    <input type="radio" id="profile3" name="profile" value="../assets/profile-images/Ellipse -8.png"
+                        required>
+                    <img class="profile" id='image3' src="../assets/profile-images/Ellipse -8.png">
+                </label>
+                <label>
+                    <input type="radio" id="profile4" name="profile" value="../assets/profile-images/Ellipse -7.png"
+                        required>
+                    <img class="profile" id='image4' src="../assets/profile-images/Ellipse -7.png">
+                </label>
             </div>
         </div>
         <div class="row">
             <label class="label text" for="gender">Gender</label>
             <div>
-                <input type="radio" id="male" name="gender" value="male">
+                <input type="radio" id="male" name="gender" value="male" required>
                 <label class="text" for="male">Male</label>
                 <input type="radio" id="female" name="gender" value="female">
                 <label class="text" for="female">Female</label>
             </div>
-
-
         </div>
         <div class="row">
             <label class="label text" for="department">Department</label>
@@ -57,7 +70,7 @@
         </div>
         <div class="row">
             <label class="label text" for="salary">Salary</label>
-            <input class="input" type="number" id="salary" name="salary" placeholder="Salary">
+            <input class="input" type="number" id="salary" name="salary" placeholder="Salary" required>
         </div>
         <div class="row">
             <label class="label text" for="startDate">Start Date</label>
@@ -123,12 +136,13 @@
             <textarea id="notes" class="input" name="Notes" placeholder="" style="height:100px"></textarea>
         </div>
         <div class="buttonParent">
-            <button onclick="submit()" class="button submitButton" id="submitButton">Submit</button>
-            <button onclick="resetValue()" class="resetButton button">Reset</button>
-
+            <a href="./home.html" class="resetButton button cancelButton">Cancel</a>
+            <div class="submit-reset">
+                <button type="submit" class="button submitButton" id="submitButton">Submit</button>
+                <button type="reset" class="resetButton button">Reset</button>
+            </div>
         </div>
-    </div>
-
+    </form>
 </body>
 
 </html>

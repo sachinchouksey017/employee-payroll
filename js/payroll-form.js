@@ -1,7 +1,7 @@
 let imageUrl = 'https://www.w3schools.com/howto/img_avatar.png';
 let isUpdate = false;
-const getRadioValue = () => {
-    let ele = document.getElementsByName('gender');
+const getRadioValue = (name) => {
+    let ele = document.getElementsByName(name);
     for (i = 0; i < ele.length; i++) {
         if (ele[i].checked) {
             return ele[i].value
@@ -9,8 +9,8 @@ const getRadioValue = () => {
     }
     return ''
 }
-const setRadioValue = (value) => {
-    let ele = document.getElementsByName('gender');
+const setRadioValue = (value, name) => {
+    let ele = document.getElementsByName(name);
     for (i = 0; i < ele.length; i++) {
         if (ele[i].value == value) {
             ele[i].checked = true;
@@ -45,6 +45,7 @@ const getStartDate = () => {
     let date = document.getElementById('day').value + ' ' + document.getElementById('month').value + ' ' + document.getElementById('year').value
     return date;
 }
+// instead of reset method we can call form button reset
 const resetValue = () => {
     document.getElementById('name').value = '';
     uncheckArray()
@@ -54,15 +55,15 @@ const resetValue = () => {
     document.getElementById('month').selectedIndex = 0;
     document.getElementById('year').selectedIndex = 0;
 }
-const submit = () => {
-    // window.open('http://www.w3schools.com',)
-    console.log('call');
+const save = () => {
+    console.log("called");
     let name = document.getElementById('name').value;
-    let gender = getRadioValue();
+    let gender = getRadioValue('gender');
     let checkedArray = getCheckedArray();
     let salary = document.getElementById('salary').value;
     let startDate = getStartDate();
-    let notes = document.getElementById('notes').value
+    let notes = document.getElementById('notes').value;
+    imageUrl = getRadioValue('profile');
     if (name.trim().length == 0 || gender.trim().length == 0 || salary.trim().length == 0 || checkedArray.length == 0)
         return;
     const temp = {
@@ -75,6 +76,7 @@ const submit = () => {
         id: new Date().getTime(),
         profileUrl: imageUrl
     }
+    console.log(temp);
     // taking all employee array from localstorage
     let employeeArray = localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')) : []
     if (isUpdate) {
@@ -90,35 +92,21 @@ const submit = () => {
     resetValue()
     window.location.replace("../pages/home.html");
 }
-const onSelectFile = (e) => {
-    if (e.target.files && e.target.files[0]) {
-        let image = document.getElementById('image');
-        var reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]); // read file as data url
-        reader.onload = (event) => { // called once readAsDataURL is completed
-            image.src = event.target.result;
-            imageUrl = event.target.result;
-        }
-    }
-}
 const checkForUpdate = () => {
     isUpdate = localStorage.getItem('editEmp') ? true : false;
     if (isUpdate) {
         document.getElementById('submitButton').innerHTML = 'Update'
-        console.log(document.getElementsByClassName('submitButton'));
         let object = JSON.parse(localStorage.getItem('editEmp'));
         let date = object.startDate.split(" ");
-        console.log(date);
-        console.log(object);
         document.getElementById('name').value = object.name;
         check(object.departMent)
-        setRadioValue(object.gender)
+        setRadioValue(object.gender, 'gender')
+        setRadioValue(object.profileUrl, 'profile')
         document.getElementById('salary').value = object.salary;
         document.getElementById('notes').value = object.notes;
         document.getElementById('day').value = date[0];
         document.getElementById('month').value = date[1];
         document.getElementById('year').value = date[2];
-        document.getElementById('image').src = object.profileUrl;
         imageUrl = object.profileUrl
     }
 }
