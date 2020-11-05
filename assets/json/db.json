@@ -1,5 +1,48 @@
 {
-  "employee": [],
+  "employee": [
+    {
+      "name": "Amarpa Shashanka Keerthi Kumar",
+      "gender": "female",
+      "departMent": [
+        "Sales",
+        "HR",
+        "Finance"
+      ],
+      "salary": "10000",
+      "startDate": "29 Oct 2019",
+      "notes": "",
+      "id": 1,
+      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+    },
+    {
+      "name": "Amarpa Shashanka Keerthi Kumar",
+      "gender": "female",
+      "departMent": [
+        "Sales",
+        "HR",
+        "Finance"
+      ],
+      "salary": "10000",
+      "startDate": "29 Oct 2019",
+      "notes": "",
+      "id": 2,
+      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+    },
+    {
+      "name": "Amarpa Shashanka Keerthi Kumar",
+      "gender": "female",
+      "departMent": [
+        "Sales",
+        "HR",
+        "Finance"
+      ],
+      "salary": "10000",
+      "startDate": "29 Oct 2019",
+      "notes": "",
+      "id": 3,
+      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+    }
+  ],
   "comments": [
     {
       "id": 1,
