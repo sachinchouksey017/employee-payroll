@@ -33,7 +33,6 @@ const createInnerHtml = () => {
 
 const remove = (node) => {
     ajaxCall("DELETE", "http://localhost:3000/employee/" + node.name)
-    ajaxCall("GET", "http://localhost:3000/employee")
 
 }
 
@@ -53,6 +52,9 @@ const ajaxCall = (method = "POST", url, data = null) => {
             // Typical action to be performed when the document is ready:
             if (method == "GET") {
                 employeeArray = JSON.parse(xhttp.response);
+            } else {
+                // 
+                ajaxCall("GET", "http://localhost:3000/employee")
             }
             console.log(employeeArray);
             createInnerHtml();

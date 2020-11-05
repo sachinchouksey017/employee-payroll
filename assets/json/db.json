@@ -1,46 +1,64 @@
 {
   "employee": [
     {
-      "name": "Amarpa Shashanka Keerthi Kumar",
-      "gender": "female",
+      "name": "mohit kumar",
+      "gender": "male",
       "departMent": [
-        "Sales",
-        "HR",
-        "Finance"
+        "HR"
       ],
-      "salary": "10000",
-      "startDate": "29 Oct 2019",
+      "salary": "30000",
+      "startDate": "1 Jan 2020",
       "notes": "",
-      "id": 1,
-      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+      "id": 1604589489288,
+      "profileUrl": "../assets/profile-images/Ellipse -7.png"
     },
     {
-      "name": "Amarpa Shashanka Keerthi Kumar",
-      "gender": "female",
+      "name": "mohit kumar new",
+      "gender": "male",
       "departMent": [
-        "Sales",
-        "HR",
-        "Finance"
+        "HR"
       ],
-      "salary": "10000",
-      "startDate": "29 Oct 2019",
+      "salary": "30000",
+      "startDate": "1 Jan 2020",
       "notes": "",
-      "id": 2,
-      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+      "id": 1604589551457,
+      "profileUrl": "../assets/profile-images/Ellipse 1.png"
     },
     {
-      "name": "Amarpa Shashanka Keerthi Kumar",
-      "gender": "female",
+      "name": "mohit kumar test",
+      "gender": "male",
       "departMent": [
-        "Sales",
-        "HR",
-        "Finance"
+        "HR"
       ],
-      "salary": "10000",
-      "startDate": "29 Oct 2019",
+      "salary": "30000",
+      "startDate": "1 Jan 2020",
       "notes": "",
-      "id": 3,
-      "profileUrl": "https://www.w3schools.com/howto/img_avatar.png"
+      "id": 1604589594363,
+      "profileUrl": "../assets/profile-images/Ellipse 1.png"
+    },
+    {
+      "name": "mohit",
+      "gender": "male",
+      "departMent": [
+        "HR"
+      ],
+      "salary": "30000",
+      "startDate": "1 Jan 2020",
+      "notes": "",
+      "id": 1604589699566,
+      "profileUrl": "../assets/profile-images/Ellipse -3.png"
+    },
+    {
+      "name": "test",
+      "gender": "male",
+      "departMent": [
+        "HR"
+      ],
+      "salary": "30000",
+      "startDate": "1 Jan 2020",
+      "notes": "",
+      "id": 1604589731061,
+      "profileUrl": "../assets/profile-images/Ellipse -3.png"
     }
   ],
   "comments": [

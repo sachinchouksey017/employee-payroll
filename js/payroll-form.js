@@ -110,7 +110,8 @@ checkForUpdate();
 const postData = (method = "POST", url, data) => {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        console.log("call");
+        if (this.status == 200 || this.status == 201) {
             // Typical action to be performed when the document is ready:
             localStorage.removeItem('editEmp')
             resetValue()
