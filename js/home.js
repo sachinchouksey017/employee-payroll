@@ -1,46 +1,4 @@
 employeeArray = [
-    {
-        name: 'Amarpa Shashanka Keerthi Kumar',
-        gender: 'female',
-        departMent: [
-            'Sales',
-            'HR',
-            'Finance'
-        ],
-        salary: '10000',
-        startDate: '29 Oct 2019',
-        notes: '',
-        id: new Date().getTime(),
-        profileUrl: 'https://www.w3schools.com/howto/img_avatar.png'
-    },
-    {
-        name: 'Amarpa Shashanka Keerthi Kumar',
-        gender: 'female',
-        departMent: [
-            'Sales',
-            'HR',
-            'Finance'
-        ],
-        salary: '10000',
-        startDate: '29 Oct 2019',
-        notes: '',
-        id: new Date().getTime() + 1,
-        profileUrl: 'https://www.w3schools.com/howto/img_avatar.png'
-    },
-    {
-        name: 'Amarpa Shashanka Keerthi Kumar',
-        gender: 'female',
-        departMent: [
-            'Sales',
-            'HR',
-            'Finance'
-        ],
-        salary: '10000',
-        startDate: '29 Oct 2019',
-        notes: '',
-        id: new Date().getTime() + 2,
-        profileUrl: 'https://www.w3schools.com/howto/img_avatar.png'
-    }
 ]
 employeeArray = localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')) : [...employeeArray];
 localStorage.removeItem('editEmp')
@@ -52,7 +10,7 @@ const getDepartMentHtml = (array) => {
     }
     return depart;
 }
-const createInnerHtml =  () => {
+const createInnerHtml = () => {
     var newhtml = "<tr><th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th><th>Start Date</th><th>Actions</th></tr>"
     // for...of loop of es6 
     for (const element of employeeArray) {
@@ -72,7 +30,6 @@ const createInnerHtml =  () => {
     }
     document.getElementById('display').innerHTML = newhtml
 }
-createInnerHtml();
 
 const remove = (node) => {
     // console.log(node.name);
@@ -88,3 +45,21 @@ const update = (node) => {
     localStorage.setItem('editEmp', JSON.stringify(employee))
     window.location.replace("../pages/payroll-form.html");
 }
+/**
+ * getData from json server
+ */
+const getData = () => {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            employeeArray = JSON.parse(xhttp.response);
+            console.log(employeeArray);
+            createInnerHtml();
+        }
+    };
+    xhttp.open("GET", "http://localhost:3000/employee", true);
+    xhttp.send();
+
+}
+getData()
