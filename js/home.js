@@ -32,11 +32,9 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
-    // console.log(node.name);
-    employeeArray = employeeArray.filter(item => item.id != node.name)
-    console.log(employeeArray);
-    localStorage.setItem('employee', JSON.stringify(employeeArray))
-    createInnerHtml();
+    ajaxCall("DELETE", "http://localhost:3000/employee/" + node.name)
+    ajaxCall("GET", "http://localhost:3000/employee")
+
 }
 
 const update = (node) => {
@@ -48,18 +46,20 @@ const update = (node) => {
 /**
  * getData from json server
  */
-const getData = () => {
+const ajaxCall = (method = "POST", url, data = null) => {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
-            employeeArray = JSON.parse(xhttp.response);
+            if (method == "GET") {
+                employeeArray = JSON.parse(xhttp.response);
+            }
             console.log(employeeArray);
             createInnerHtml();
         }
     };
-    xhttp.open("GET", "http://localhost:3000/employee", true);
+    xhttp.open(method, url, true);
     xhttp.send();
 
 }
-getData()
+ajaxCall("GET", "http://localhost:3000/employee")

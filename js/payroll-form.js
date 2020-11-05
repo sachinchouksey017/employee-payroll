@@ -55,7 +55,9 @@ const resetValue = () => {
     document.getElementById('month').selectedIndex = 0;
     document.getElementById('year').selectedIndex = 0;
 }
-const save = () => {
+const save = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     console.log("called");
     let name = document.getElementById('name').value;
     let gender = getRadioValue('gender');
@@ -76,21 +78,15 @@ const save = () => {
         id: new Date().getTime(),
         profileUrl: imageUrl
     }
-    console.log(temp);
-    // taking all employee array from localstorage
-    let employeeArray = localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')) : []
     if (isUpdate) {
         let object = JSON.parse(localStorage.getItem('editEmp'));
-        let index = employeeArray.findIndex(ele => ele.id == object.id);
         temp.id = object.id
-        employeeArray[index] = temp;
+        postData("PUT", "http://localhost:3000/employee/" + object.id, temp)
+
     } else {
-        employeeArray = [...employeeArray, temp];
+        postData("POST", "http://localhost:3000/employee", temp)
     }
-    localStorage.setItem('employee', JSON.stringify(employeeArray))
-    localStorage.removeItem('editEmp')
-    resetValue()
-    window.location.replace("../pages/home.html");
+
 }
 const checkForUpdate = () => {
     isUpdate = localStorage.getItem('editEmp') ? true : false;
@@ -110,4 +106,20 @@ const checkForUpdate = () => {
         imageUrl = object.profileUrl
     }
 }
-checkForUpdate()
+checkForUpdate();
+const postData = (method = "POST", url, data) => {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            localStorage.removeItem('editEmp')
+            resetValue()
+            window.location.replace("../pages/home.html");
+
+        }
+    };
+    xhttp.open(method, url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(data));
+}
+
