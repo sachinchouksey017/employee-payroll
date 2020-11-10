@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PayrollFormComponent } from './components/payroll-form/payroll-form.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +16,8 @@ import { PayrollFormComponent } from './components/payroll-form/payroll-form.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
