@@ -10,6 +10,6 @@ export class EmployeeService {
   constructor(private httpService: HttpService) { }
   baseUrl: String = environment.baseUrl;
   getAllEmployee() {
-    return this.httpService.getService(`${this.baseUrl}employee`)
+    return this.httpService.getService(`${this.baseUrl}employee`);
   }
 }
