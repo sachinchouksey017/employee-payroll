@@ -1,0 +1,24 @@
+<table id="display" class="table">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Department</th>
+    <th>Salary</th>
+    <th>Start Date</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let element of employeeArray">
+    <td><img class="profile" src="{{element.profileUrl}}" alt=""></td>
+    <td>{{element.name}}</td>
+    <td>{{element.gender}}</td>
+    <td>
+      <div *ngFor="let dept of element.departMent" class='dept-label'>{{dept}}</div>
+    </td>
+    <td> ₹ {{element.salary}}</td>
+    <td>{{element.startDate}}</td>
+    <td><img (click)="remove(element.id)" onclick="remove(this)" src="../../../assets/icons/delete-black-18dp.svg" alt="delete">
+      <img  onclick="update(this)" src="../../../assets/icons/create-black-18dp.svg" alt="edit">
+    </td>
+  </tr>
+</table>
