@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  postService(payload: any = null, url: string = '', tokenRequired: boolean = false, httpOptions = null) {
+  postService(url: string = '', payload: any = null, tokenRequired: boolean = false, httpOptions = null) {
     /* handles post operations
       params : id  : id of question or comment to add/post,
       apiendpoint : endpoint i.e 'comments/' , 'answers/', 'editquestions/'
@@ -24,6 +24,14 @@ export class HttpService {
   id attached as url param.
   */
     return this.http.patch(url, payload, tokenRequired && httpOptions);
+  }
+  putService(url, payload: any = null, tokenRequired: boolean = false, httpOptions = null) {
+    /* handles edit/patch operations
+  params : id  : id of question or comment to edit,
+          apiendpoint : endpoint i.e 'comments' , 'answers'
+  id attached as url param.
+  */
+    return this.http.put(url, payload, tokenRequired && httpOptions);
   }
   deleteService(url: string = '', tokenRequired: boolean = false, httpOptions = null) {
     /* handles delete operations
