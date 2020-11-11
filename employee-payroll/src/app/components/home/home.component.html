@@ -1,13 +1,5 @@
 <div>
-  <header class="flex-row-center header">
-    <div class="logo">
-      <img src="../../../assets/images/logo.png" alt="">
-      <div>
-        <span class="emp-text">EMPLOYEE</span><br>
-        <span class="emp-text emp-payroll">PAYROLL</span>
-      </div>
-    </div>
-  </header>
+  <app-header></app-header>
   <div class="flex-column content">
     <div class="emp-detail">
       <div class="detail-text">
@@ -17,13 +9,13 @@
             <img src="../assets/icons/add-24px.svg" alt="">
             Add User
         </button> -->
-      <a href="../pages/payroll-form.html" class="add-button flex-row-center"><img src="../assets/icons/add-24px.svg"
-          alt="">
+      <a routerLink="payroll-form" class="add-button flex-row-center"><img src="../assets/icons/add-24px.svg" alt="">
         Add User</a>
 
     </div>
     <div class="table-main">
-        <app-display [employeeArray]="employeeArray" class="table-row" style="min-width: 100%;"></app-display>
+      <app-display [employeeArray]="employeeArray" (employeeEvent)="updateEvent($event)" class="table-row"
+        style="min-width: 100%;"></app-display>
     </div>
   </div>
 </div>
