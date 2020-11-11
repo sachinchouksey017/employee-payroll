@@ -17,8 +17,8 @@
     </td>
     <td> ₹ {{element.salary}}</td>
     <td>{{element.startDate}}</td>
-    <td><img (click)="remove(element.id)" onclick="remove(this)" src="../../../assets/icons/delete-black-18dp.svg" alt="delete">
-      <img  onclick="update(this)" src="../../../assets/icons/create-black-18dp.svg" alt="edit">
+    <td><img (click)="remove(element.id)" src="../../../assets/icons/delete-black-18dp.svg" alt="delete">
+      <img (click)="update(element)" src="../../../assets/icons/create-black-18dp.svg" alt="edit">
     </td>
   </tr>
 </table>
