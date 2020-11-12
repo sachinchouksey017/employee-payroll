@@ -82,9 +82,24 @@ const save = (event) => {
         let object = JSON.parse(localStorage.getItem('editEmp'));
         temp.id = object.id
         postData("PUT", "http://localhost:3000/employee/" + object.id, temp)
+            .then(response => {
+                console.log("after employee update", response);
+                localStorage.removeItem('editEmp')
+                resetValue()
+                window.location.replace("../pages/home.html");
+            }).catch(err => {
+                console.log("err in ", err);
+            })
 
     } else {
         postData("POST", "http://localhost:3000/employee", temp)
+            .then(response => {
+                console.log("after employee add", response);
+                resetValue()
+                window.location.replace("../pages/home.html");
+            }).catch(err => {
+                console.log("err in ", err);
+            })
     }
 
 }
@@ -108,19 +123,32 @@ const checkForUpdate = () => {
 }
 checkForUpdate();
 const postData = (method = "POST", url, data) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        console.log("call");
-        if (this.status == 200 || this.status == 201) {
-            // Typical action to be performed when the document is ready:
-            localStorage.removeItem('editEmp')
-            resetValue()
-            window.location.replace("../pages/home.html");
+    return new Promise(function (resolve, reject) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            if (this.status === 0 || (this.status >= 200 && this.status < 400)) {
+                // The request has been completed successfully
+                resolve(xhttp.response);
 
-        }
-    };
-    xhttp.open(method, url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(data));
+            } else {
+                // Oh no! There has been an error with the request!
+                reject({
+                    status: this.status,
+                    statusText: xhttp.statusText
+                });
+
+            }
+        };
+        xhttp.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhttp.statusText
+            });
+        };
+        xhttp.open(method, url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(data));
+    })
+
 }
 
