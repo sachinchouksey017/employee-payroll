@@ -32,8 +32,14 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
-    ajaxCall("DELETE", "http://localhost:3000/employee/" + node.name)
-
+    ajaxCall("DELETE", "http://localhost:3000/employee/" + node.name, {}, (err, data) => {
+        if (err) {
+            console.log("there is err", err);
+        } else {
+            // get the data after any update
+            getAllEmployee()
+        }
+    })
 }
 
 const update = (node) => {
@@ -42,26 +48,45 @@ const update = (node) => {
     localStorage.setItem('editEmp', JSON.stringify(employee))
     window.location.replace("../pages/payroll-form.html");
 }
+const getAllEmployee = () => {
+    ajaxCall("GET", "http://localhost:3000/employee", null, (err, data) => {
+        if (err) {
+            console.log("there is err", err);
+        } else {
+            // assign the data to array
+            employeeArray = JSON.parse(data);
+            createInnerHtml()
+        }
+    })
+}
 /**
  * getData from json server
  */
-const ajaxCall = (method = "POST", url, data = null) => {
+const ajaxCall = (method = "POST", url, data = null, callback) => {
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            if (method == "GET") {
-                employeeArray = JSON.parse(xhttp.response);
-            } else {
-                // 
-                ajaxCall("GET", "http://localhost:3000/employee")
-            }
-            console.log(employeeArray);
-            createInnerHtml();
+    xhttp.onload = function () {
+        if (this.status === 0 || (this.status >= 200 && this.status < 400)) {
+            // The request has been completed successfully
+            callback(null, xhttp.response);
+
+        } else {
+            // Oh no! There has been an error with the request!
+            callback({
+                status: this.status,
+                statusText: xhttp.statusText
+            });
+
         }
+    };
+    xhttp.onerror = function () {
+        callback({
+            status: this.status,
+            statusText: xhttp.statusText
+        });
     };
     xhttp.open(method, url, true);
     xhttp.send();
 
 }
-ajaxCall("GET", "http://localhost:3000/employee")
+// get all employee when page is load
+getAllEmployee()
