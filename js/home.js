@@ -2,7 +2,7 @@ employeeArray = [
 ]
 employeeArray = localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')) : [...employeeArray];
 localStorage.removeItem('editEmp')
-let baseUrl = "http://localhost:3000/employee";
+let baseUrl = "http://localhost:3000/employee/";
 const getDepartMentHtml = (array) => {
     let depart = ''
     for (const iterator of array) {
