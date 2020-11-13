@@ -1,5 +1,6 @@
 let imageUrl = 'https://www.w3schools.com/howto/img_avatar.png';
 let isUpdate = false;
+let baseUrl = "http://localhost:3000/employee/";
 const getRadioValue = (name) => {
     let ele = document.getElementsByName(name);
     for (i = 0; i < ele.length; i++) {
@@ -81,7 +82,7 @@ const save = (event) => {
     if (isUpdate) {
         let object = JSON.parse(localStorage.getItem('editEmp'));
         temp.id = object.id
-        postData("PUT", "http://localhost:3000/employee/" + object.id, temp)
+        postData("PUT", baseUrl + object.id, temp)
             .then(response => {
                 console.log("after employee update", response);
                 localStorage.removeItem('editEmp')
@@ -92,7 +93,7 @@ const save = (event) => {
             })
 
     } else {
-        postData("POST", "http://localhost:3000/employee", temp)
+        postData("POST", baseUrl, temp)
             .then(response => {
                 console.log("after employee add", response);
                 resetValue()

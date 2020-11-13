@@ -2,7 +2,7 @@ employeeArray = [
 ]
 employeeArray = localStorage.getItem('employee') ? JSON.parse(localStorage.getItem('employee')) : [...employeeArray];
 localStorage.removeItem('editEmp')
-
+let baseUrl = "http://localhost:3000/employee";
 const getDepartMentHtml = (array) => {
     let depart = ''
     for (const iterator of array) {
@@ -32,7 +32,7 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
-    ajaxCall("DELETE", "http://localhost:3000/employee/" + node.name, {}, (err, data) => {
+    ajaxCall("DELETE", baseUrl + node.name, {}, (err, data) => {
         if (err) {
             console.log("there is err", err);
         } else {
@@ -49,7 +49,7 @@ const update = (node) => {
     window.location.replace("../pages/payroll-form.html");
 }
 const getAllEmployee = () => {
-    ajaxCall("GET", "http://localhost:3000/employee", null, (err, data) => {
+    ajaxCall("GET", baseUrl, null, (err, data) => {
         if (err) {
             console.log("there is err", err);
         } else {
