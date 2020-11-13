@@ -32,6 +32,7 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
+    // method of http service
     ajaxCall("DELETE", baseUrl + node.name, {}, (err, data) => {
         if (err) {
             console.log("there is err", err);
@@ -49,6 +50,7 @@ const update = (node) => {
     window.location.replace("../pages/payroll-form.html");
 }
 const getAllEmployee = () => {
+    // method of http service
     ajaxCall("GET", baseUrl, null, (err, data) => {
         if (err) {
             console.log("there is err", err);
@@ -59,34 +61,6 @@ const getAllEmployee = () => {
         }
     })
 }
-/**
- * getData from json server
- */
-const ajaxCall = (method = "POST", url, data = null, callback) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onload = function () {
-        if (this.status === 0 || (this.status >= 200 && this.status < 400)) {
-            // The request has been completed successfully
-            callback(null, xhttp.response);
 
-        } else {
-            // Oh no! There has been an error with the request!
-            callback({
-                status: this.status,
-                statusText: xhttp.statusText
-            });
-
-        }
-    };
-    xhttp.onerror = function () {
-        callback({
-            status: this.status,
-            statusText: xhttp.statusText
-        });
-    };
-    xhttp.open(method, url, true);
-    xhttp.send();
-
-}
 // get all employee when page is load
 getAllEmployee()

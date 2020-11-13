@@ -82,27 +82,23 @@ const save = (event) => {
     if (isUpdate) {
         let object = JSON.parse(localStorage.getItem('editEmp'));
         temp.id = object.id
-        postData("PUT", baseUrl + object.id, temp)
-            .then(response => {
-                console.log("after employee update", response);
-                localStorage.removeItem('editEmp')
-                resetValue()
-                window.location.replace("../pages/home.html");
-            }).catch(err => {
-                console.log("err in ", err);
-            })
-
+        postData("PUT", baseUrl + object.id, temp);
     } else {
-        postData("POST", baseUrl, temp)
-            .then(response => {
-                console.log("after employee add", response);
-                resetValue()
-                window.location.replace("../pages/home.html");
-            }).catch(err => {
-                console.log("err in ", err);
-            })
+        postData("POST", baseUrl, temp);
     }
 
+}
+const postData = (method, url, data = null) => {
+    // method of http service
+    post(method, url, data)
+        .then(response => {
+            console.log("after employee update", response);
+            localStorage.removeItem('editEmp')
+            resetValue()
+            window.location.replace("../pages/home.html");
+        }).catch(err => {
+            console.log("err in ", err);
+        })
 }
 const checkForUpdate = () => {
     isUpdate = localStorage.getItem('editEmp') ? true : false;
@@ -123,33 +119,5 @@ const checkForUpdate = () => {
     }
 }
 checkForUpdate();
-const postData = (method = "POST", url, data) => {
-    return new Promise(function (resolve, reject) {
-        let xhttp = new XMLHttpRequest();
-        xhttp.onload = function () {
-            if (this.status === 0 || (this.status >= 200 && this.status < 400)) {
-                // The request has been completed successfully
-                resolve(xhttp.response);
 
-            } else {
-                // Oh no! There has been an error with the request!
-                reject({
-                    status: this.status,
-                    statusText: xhttp.statusText
-                });
-
-            }
-        };
-        xhttp.onerror = function () {
-            reject({
-                status: this.status,
-                statusText: xhttp.statusText
-            });
-        };
-        xhttp.open(method, url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify(data));
-    })
-
-}
 
