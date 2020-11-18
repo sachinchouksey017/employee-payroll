@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee-service/employee.service';
 @Component({
   selector: 'app-payroll-form',
@@ -11,6 +11,7 @@ export class PayrollFormComponent implements OnInit {
   employeeForm: any;
   departMentValue = ['HR'];
   departMentValid = true;
+  employeeId: string;
   isUpdate = false;
   profileArray = [
     { url: '../../../assets/profile-images/Ellipse -3.png' },
@@ -23,9 +24,7 @@ export class PayrollFormComponent implements OnInit {
     'HR', 'Sales', 'Finance', 'Engineer', 'Others'
   ]
   constructor(private formBuilder: FormBuilder, private employeeService: EmployeeService,
-    private router: Router) {
-    console.log(this.router.url);
-
+    private router: Router, private activatedRoute: ActivatedRoute) {
     this.employeeForm = this.formBuilder.group({
       name: ['', Validators.required],
       gender: ['', Validators.required],
@@ -39,25 +38,13 @@ export class PayrollFormComponent implements OnInit {
       id: [''],
       profileUrl: ['', Validators.required]
     });
-    if (localStorage.getItem('editEmp')) {
-      this.isUpdate = true;
-      let object = JSON.parse(localStorage.getItem('editEmp'));
-      let date = object.startDate.split(" ");
-      this.employeeForm.setValue({
-        name: object.name,
-        gender: object.gender,
-        departMent: [],
-        salary: object.salary,
-        day: date[0],
-        month: date[1],
-        year: date[2],
-        startDate: object.startDate,
-        notes: object.notes,
-        id: object.id,
-        profileUrl: object.profileUrl
-      });
-      this.departMentValue = object.departMent;
-    }
+    this.activatedRoute.params.subscribe(data => {
+      if (data && data.id) {
+        this.isUpdate = true;
+        this.getDataById(data.id)
+      }
+    })
+
   }
 
   ngOnInit() {
@@ -99,7 +86,36 @@ export class PayrollFormComponent implements OnInit {
       }
     });
   }
-  save() {
+  getDataById(id): void {
+    this.employeeService.getEmployee(id).subscribe(data => {
+      console.log("data of employee", data);
+      this.setDataToFormBuilder(data)
+    }, err => {
+      console.log("employee not found");
+    })
+  }
+  setDataToFormBuilder(object): void {
+    let date = object.startDate.split(" ");
+    this.employeeForm.setValue({
+      name: object.name,
+      gender: object.gender,
+      departMent: [],
+      salary: object.salary,
+      day: date[0],
+      month: date[1],
+      year: date[2],
+      startDate: object.startDate,
+      notes: object.notes,
+      id: object.id,
+      profileUrl: object.profileUrl
+    });
+    this.departMentValue = object.departMent;
+    this.employeeId = object.id;
+  }
+  save(event) {
+    event.preventDefault();
+    console.log("save");
+
     if (this.departMentValue.length == 0) {
       this.departMentValid = false;
       return;
@@ -114,7 +130,7 @@ export class PayrollFormComponent implements OnInit {
 
       if (this.isUpdate) {
         // this line is because when user reset the value then id is also reset 
-        this.employeeForm.controls['id'].setValue(JSON.parse(localStorage.getItem('editEmp')).id)
+        this.employeeForm.controls['id'].setValue(this.employeeId)
         this.employeeService.updateEmployee(this.employeeForm.value).subscribe(response => {
           console.log("response is ", response);
           this.router.navigateByUrl('')

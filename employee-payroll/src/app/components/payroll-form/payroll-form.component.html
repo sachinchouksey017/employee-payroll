@@ -2,7 +2,7 @@
   <app-header></app-header>
 
   <div class="content">
-    <form class="form" action="#" [formGroup]="employeeForm" (submit)="save()">
+    <form class="form" action="#" [formGroup]="employeeForm" (submit)="save($event)">
       <div class="form-head">Employee Payroll form</div>
       <div class="row">
         <label class="label text" for="name">Name</label>
