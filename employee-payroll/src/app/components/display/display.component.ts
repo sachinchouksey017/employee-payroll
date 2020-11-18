@@ -28,9 +28,8 @@ export class DisplayComponent implements OnInit {
 
     })
   }
-  update(element) {
-    localStorage.setItem('editEmp', JSON.stringify(element));
-    this.router.navigateByUrl('payroll-form');
+  update(employeeId: string) {
+    this.router.navigateByUrl(`payroll-form/${employeeId}`);
   }
 
 }
