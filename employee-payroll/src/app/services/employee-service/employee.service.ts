@@ -12,6 +12,9 @@ export class EmployeeService {
   getAllEmployee() {
     return this.httpService.getService(`${this.baseUrl}employee`);
   }
+  getEmployee(id) {
+    return this.httpService.getService(`${this.baseUrl}employee/${id}`);
+  }
   deleteEmployee(id: string) {
     return this.httpService.deleteService(`${this.baseUrl}employee/${id}`)
   }
