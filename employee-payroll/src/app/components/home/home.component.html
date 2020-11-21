@@ -5,13 +5,16 @@
       <div class="detail-text">
         Employee Details <div class="count">{{employeeArray?.length}}</div>
       </div>
-      <!-- <button onclick="addEmployee()" class="add-button flex-row-center">
-            <img src="../assets/icons/add-24px.svg" alt="">
-            Add User
-        </button> -->
-      <a routerLink="payroll-form" class="add-button flex-row-center"><img src="../assets/icons/add-24px.svg" alt="">
-        Add User</a>
+      <div class="flex-row-center button-box">
+        <div class='search-box' (click)="openSearchBox()">
+          <input class="input" (keyup)="search()" 
+            [ngClass]="{'input-expand':searchExpand}" [(formControl)]="searchKey" type="text" placeholder="">
+          <img class="search-icon" src="../../../assets/icons/search-black-18dp.svg" alt="">
+        </div>
+        <a routerLink="payroll-form" class="add-button flex-row-center"><img src="../assets/icons/add-24px.svg" alt="">
+          Add User</a>
 
+      </div>
     </div>
     <div class="table-main">
       <app-display [employeeArray]="employeeArray" (employeeEvent)="updateEvent($event)" class="table-row"
