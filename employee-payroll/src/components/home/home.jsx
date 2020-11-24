@@ -29,6 +29,9 @@ export default class Home extends React.Component {
             console.log("err after ", err);
         })
     }
+    search =()=>{
+        console.log("auu");
+    }
 
     render() {
         return (
@@ -40,10 +43,10 @@ export default class Home extends React.Component {
                         </div>
                         <div className="row center button-box">
                             <div className='search-box' onClick={this.openSearch}>
-                                <input className={"input " + (this.state.searchExpand && 'input-expand')} onKeyUp="search()" type="text" placeholder="" />
+                                <input className={"input " + (this.state.searchExpand && 'input-expand')} onChange={this.search} type="text" placeholder="" />
                                 <img className="search-icon" src={searchIcon} alt="" />
                             </div>
-                            <a routerLink="payroll-form" className="add-button flex-row-center">
+                            <a  className="add-button flex-row-center">
                                 <img src={addIcon} alt="" />
           Add User</a>
 
