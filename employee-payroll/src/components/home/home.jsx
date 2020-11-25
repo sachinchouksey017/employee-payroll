@@ -4,12 +4,17 @@ import addIcon from '../../assets/icons/add-24px.svg'
 import './home.scss'
 import EmployeeService from '../../services/employee-service'
 import Display from '../display/display';
+import Toolbar from '../header/header';
+import {
+    Link
+} from "react-router-dom";
 export default class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             searchExpand: false,
-            employeeArray: []
+            employeeArray: [],
+            AllEmployeeArray: []
         }
         this.employeeService = new EmployeeService()
 
@@ -24,18 +29,26 @@ export default class Home extends React.Component {
     getAllEmployee = () => {
         this.employeeService.getAllEmployee().then(data => {
             console.log("data after get ", data.data);
-            this.setState({ employeeArray: data.data })
+            this.setState({ employeeArray: data.data, AllEmployeeArray: data.data })
         }).catch(err => {
             console.log("err after ", err);
         })
     }
-    search =()=>{
-        console.log("auu");
+    search = async (event) => {
+        let search = event.target.value;
+        // assigning the original array to employeeArray
+        await this.setState({ employeeArray: this.state.AllEmployeeArray })
+        let empArray = this.state.employeeArray;
+        if (search.trim().length > 0)
+            empArray = empArray.filter(element => element.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+        // after filter reassign the filter array to employee array
+        this.setState({ employeeArray: empArray })
     }
 
     render() {
         return (
             <div>
+                <Toolbar />
                 <div className="column content">
                     <div className="emp-detail">
                         <div className="detail-text">
@@ -46,14 +59,12 @@ export default class Home extends React.Component {
                                 <input className={"input " + (this.state.searchExpand && 'input-expand')} onChange={this.search} type="text" placeholder="" />
                                 <img className="search-icon" src={searchIcon} alt="" />
                             </div>
-                            <a  className="add-button flex-row-center">
-                                <img src={addIcon} alt="" />
-          Add User</a>
-
+                            <Link to="payroll-form" className="add-button flex-row-center">
+                                <img src={addIcon} alt="" /> Add User</Link>
                         </div>
                     </div>
                     <div className="table-main">
-                        <Display employeeArray={this.state.employeeArray} />
+                        <Display employeeArray={this.state.employeeArray} getAllEmployee={this.getAllEmployee} />
                     </div>
                 </div>
             </div>

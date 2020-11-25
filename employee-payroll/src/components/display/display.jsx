@@ -3,8 +3,11 @@ import './display.scss'
 import deleteIcon from '../../assets/icons/delete-black-18dp.svg'
 import editIcon from '../../assets/icons/create-black-18dp.svg'
 import profile from '../../assets/profile-images/Ellipse -1.png'
+import { withRouter } from "react-router-dom";
+import EmployeeService from '../../services/employee-service'
 
 const Display = (props) => {
+    const employeeService = new EmployeeService();
 
     const remove = (employeeId) => {
         // this.employeeService.deleteEmployee(employeeId).subscribe(data => {
@@ -12,9 +15,16 @@ const Display = (props) => {
         // }, err => {
 
         // })
+        employeeService.deleteEmployee(employeeId).then(data => {
+            console.log("data after delete", data);
+            props.getAllEmployee()
+        }).catch(err => {
+            console.log("err after delete", err);
+        })
     }
     const update = (employeeId) => {
         // this.router.navigateByUrl(`payroll-form/${employeeId}`);
+        props.history.push(`payroll-form/${employeeId}`)
     }
 
     return (
@@ -32,12 +42,12 @@ const Display = (props) => {
                 {
                     props.employeeArray && props.employeeArray.map((element, ind) => (
                         <tr key={ind}>
-                            <td><img className="profile" src={profile}  alt="" /></td>
+                            <td><img className="profile" src={profile} alt="" /></td>
                             <td>{element.name}</td>
                             <td>{element.gender}</td>
                             <td>
                                 {
-                                    element.departMent.map(dept => (
+                                    element.departMent && element.departMent.map(dept => (
                                         <div className='dept-label'>{dept}</div>
                                     ))
                                 }
@@ -55,4 +65,4 @@ const Display = (props) => {
         </table >
     )
 }
-export default Display;
+export default withRouter(Display);
